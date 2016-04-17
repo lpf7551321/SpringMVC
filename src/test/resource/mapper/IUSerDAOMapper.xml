@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netease.dao.IUserDAO">
+
+
+
+    <insert id="insert" parameterType="com.netease.bean.User" keyColumn="id" useGeneratedKeys="true">
+        insert into users(name, age) values(#{name}, #{age})
+    </insert>
+
+    <select id="selectById" parameterType="int" resultType="com.netease.bean.User">
+        SELECT * FROM mybatis.users WHERE id=#{id}
+    </select>
+
+    <delete id="deleteById" parameterType="int" >
+        DELETE FROM mybatis.users WHERE id=#{id}
+    </delete>
+
+    <update id="updateById" parameterType="com.netease.bean.User" >
+        UPDATE mybatis.users SET NAME =#{name},age=#{age} where id=#{id}
+    </update>
+
+</mapper>

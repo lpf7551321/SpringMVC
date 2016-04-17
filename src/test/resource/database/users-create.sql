@@ -1,0 +1,1 @@
+CREATE TABLE users(id int primary KEY auto_increment,name varchar(20),age int);
