@@ -28,7 +28,7 @@ public class UserServiceImp implements IUserService {
         return userDAO.updateById(user);
     }
 
-    public User findById(int id) {
+    public User findById(final int id) {
         return userDAO.selectById(id);
     }
 
