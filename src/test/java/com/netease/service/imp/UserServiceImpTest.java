@@ -8,18 +8,18 @@ import org.springframework.test.annotation.Rollback;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import javax.annotation.Resource;
 
 /**
  * Created by miracler on 4/17/16.
  */
 public class UserServiceImpTest extends AbstractTest{
 
-    @Resource(name = "userService")
+    @Autowired
     IUserService userService;
+    static final int USER_ID=2;
 
     @Test(priority = 1)
-    @Rollback(false)
+    @Rollback(true)
     public void save(){
         User user =new User();
         user.setName("testUser");
@@ -27,4 +27,12 @@ public class UserServiceImpTest extends AbstractTest{
         userService.save(user);
         Assert.assertEquals(true,true);
     }
+    @Test(priority = 2)
+    @Rollback(true)
+    public void findById(){
+        User user=userService.findById(USER_ID);
+        Assert.assertEquals(user.getId(),USER_ID);
+    }
+
+
 }
