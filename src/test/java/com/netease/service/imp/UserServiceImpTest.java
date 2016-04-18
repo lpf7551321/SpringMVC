@@ -1,5 +1,8 @@
 package com.netease.service.imp;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import com.netease.AbstractTest;
 import com.netease.bean.User;
 import com.netease.service.IUserService;
@@ -27,12 +30,19 @@ public class UserServiceImpTest extends AbstractTest{
         userService.save(user);
         Assert.assertEquals(true,true);
     }
+
     @Test(priority = 2)
     @Rollback(true)
-    public void findById(){
-        User user=userService.findById(USER_ID);
-        Assert.assertEquals(user.getId(),USER_ID);
+    public static void testMock(){
+        IUserService iUserService=mock(IUserService.class);
+        when(iUserService.deleteById(1)).thenReturn(2);
+        int getId=iUserService.deleteById(1);
+        Assert.assertEquals(getId,2);
+
     }
+
+
+
 
 
 }
