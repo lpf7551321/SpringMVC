@@ -2,6 +2,7 @@ package com.netease.controller;
 
 import com.netease.bean.User;
 import com.netease.service.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,24 +17,31 @@ import javax.annotation.Resource;
 @RequestMapping("/user")
 public class UserController {
 
+    @Autowired
     IUserService userService;
 
-    @RequestMapping("/add")
-    public String add(ModelMap model,@RequestParam String name,@RequestParam int age){
+    @RequestMapping("/form")
+    public String form(ModelMap model){
+        return "formViewer";
+    }
+
+    @RequestMapping("/success")
+    public String success(ModelMap model,@RequestParam String name,@RequestParam int age){
         User user=new User();
         user.setName(name);
         user.setAge(age);
         model.addAttribute("user",user);
         model.addAttribute("message","add");
+        System.out.println(user.getName());
         userService.save(user);
-        return "success";
+        return "successResult";
     }
     @RequestMapping("/find")
     public String find(ModelMap model,@RequestParam int id){
         User user=userService.findById(id);
         model.addAttribute("user",user);
         model.addAttribute("message","find");
-        return "success";
+        return "successResult";
     }
     @RequestMapping("/update")
     public String update(ModelMap model,@RequestParam Integer id,@RequestParam String name,@RequestParam Integer age){
@@ -50,7 +58,7 @@ public class UserController {
         userService.updateById(newUser);
         model.addAttribute("message","update");
         model.addAttribute("user",newUser);
-        return "success";
+        return "successResult";
     }
     @RequestMapping("/delete")
     public String delete(ModelMap model,@RequestParam int id){
@@ -58,12 +66,6 @@ public class UserController {
         userService.deleteById(id);
         model.addAttribute("user",user);
         model.addAttribute("message","delete");
-        return "success";
-    }
-
-
-    @Resource(name="userService")
-    public void setUserService(IUserService userService) {
-        this.userService = userService;
+        return "successResult";
     }
 }
